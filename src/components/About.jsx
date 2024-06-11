@@ -16,6 +16,9 @@ const About = () => {
       >
         <div className="main-heading min-h-screen p-4 sm:p-10 md:flex  lg:max-w-4xl xl:max-w-6xl mx-auto lg:justify-between lg:items-center">
           <div className="left md:my-4 lg:w-1/2  xl:my-28">
+            <div className="inline-block rounded-lg bg-gray-100 px-3 py-1 text-sm dark:bg-gray-800 my-4">
+              About Our Food
+            </div>
             <h2 className="text-2xl lg:text-4xl xl:text-left xl:text-6xl text-center font-extrabold font-david-libre md:text-3xl tracking-wide">
               <span className="xl:text-6xl  text-orange-500 "></span>From Our
               Kitchen to Your Table:{" "}
@@ -159,9 +162,11 @@ const About = () => {
                         Lorem, ipsum dolor sit amet consectetur adipisicing
                         elit. Exercitationem maxime iusto labore.
                       </p>
-                      <button className="text-white bg-[#EA6D27] rounded-md font-david-libre border-box w-36 p-2 text-lg">
-                        Learn More
-                      </button>
+                      <Link to="/AboutFoodDesc">
+                        <button className="text-white bg-[#EA6D27] rounded-md font-david-libre border-box w-36 p-2 text-lg">
+                          Learn More
+                        </button>
+                      </Link>
                     </div>
                   </div>
                 </motion.div>

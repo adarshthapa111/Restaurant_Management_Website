@@ -28,6 +28,13 @@ import DeliveryForm from "./components/DeliveryForm";
 import OrderNotification from "./Admin/OrderNotification";
 import Reservations from "./Admin/Reservations";
 import Notifications from "./components/Notifications";
+import Home from "./components/Home";
+import AllOrder from "./Admin/AllOrder";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import AboutFoodDesc from "./components/AboutFoodDesc";
+import PaymentSuccess from "./components/PaymentSuccess";
+
 const App = () => {
   return (
     <>
@@ -41,7 +48,9 @@ const App = () => {
               element={
                 <>
                   <Navbar />
-                  <Homepage />
+                  {/* <Homepage /> */}
+                  <Home />
+                  {/* <Menu/> */}
                   <Footer />
                 </>
               }
@@ -52,6 +61,16 @@ const App = () => {
                 <>
                   <Navbar />
                   <About />
+                  <Footer />
+                </>
+              }
+            />
+            <Route
+              path="/AboutFoodDesc"
+              element={
+                <>
+                  <Navbar />
+                  <AboutFoodDesc />
                   <Footer />
                 </>
               }
@@ -151,7 +170,7 @@ const App = () => {
               element={
                 <>
                   <Navbar />
-                  <Notifications/>
+                  <Notifications />
                   <Footer />
                 </>
               }
@@ -199,6 +218,7 @@ const App = () => {
             />
             <Route path="/AddFoodItem" element={<AddFoodItem />} />
             <Route path="/Reservations" element={<Reservations />} />
+            <Route path="/AllOrders" element={<AllOrder />} />
             <Route path="/reservations" element={<Reservations />} />
             <Route path="/OrderNotifications" element={<OrderNotification />} />
             <Route path="/Login" element={<Login />} />
@@ -207,7 +227,9 @@ const App = () => {
             <Route path="/Error" element={<Error />} />
             <Route path="/Admin" element={<Admin />} />
             <Route path="/FoodItems" element={<FoodItems />} />
+            <Route path="/PaymentSuccess" element={<PaymentSuccess />} />
           </Routes>
+          <ToastContainer />
         </Router>
       </AuthContextProvider>
     </>

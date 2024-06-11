@@ -120,7 +120,7 @@ import { ref, onValue, remove, update } from "firebase/database";
 import { db } from "../firebase";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-
+import Swal from 'sweetalert2';
 const FoodItems = () => {
   const [foodItems, setFoodItems] = useState([]);
   const [selectedFoodItem, setSelectedFoodItem] = useState(null);
@@ -149,14 +149,36 @@ const FoodItems = () => {
   }, []);
 
   const handleDelete = (foodItemId) => {
-    remove(ref(db, `FoodItems/${foodItemId}`))
-      .then(() => {
-        console.log("Food item deleted successfully");
-        setFoodItems(foodItems.filter((item) => item.id !== foodItemId));
-      })
-      .catch((error) => {
-        console.error("Error deleting food item: ", error);
-      });
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        remove(ref(db, `FoodItems/${foodItemId}`))
+          .then(() => {
+            console.log('Food item deleted successfully');
+            setFoodItems((prevItems) => prevItems.filter((item) => item.id !== foodItemId));
+            Swal.fire(
+              'Deleted!',
+              'The food item has been deleted.',
+              'success'
+            );
+          })
+          .catch((error) => {
+            console.error('Error deleting food item: ', error);
+            Swal.fire(
+              'Error!',
+              'There was an error deleting the food item.',
+              'error'
+            );
+          });
+      }
+    });
   };
 
   const updateFunction = (foodItemId) => {

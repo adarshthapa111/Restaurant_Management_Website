@@ -4,11 +4,22 @@ import { Link } from "react-router-dom";
 import { Link as ScrollLink } from "react-scroll";
 import { motion } from "framer-motion";
 import Button from "./Button";
+import { UserAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const TableBooking = () => {
+  const { user: currentUser } = UserAuth();
+  const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    if (!currentUser) {
+      navigate("/Login");
+    }
+  }, [currentUser, navigate]);
+
   return (
     <motion.div   
     initial={{ opacity: 0, y: -50 }}

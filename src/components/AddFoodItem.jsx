@@ -9,15 +9,15 @@ import { motion } from "framer-motion";
 const AddFoodItem = () => {
   const { register } = useForm();
   const [error, setError] = useState(null);
-  const [description, setDescription] = useState("this is pizza");
+  const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [ingredient, setIngredient] = useState("");
   const [fat, setFat] = useState(0);
   const [calorie, setCalorie] = useState(0);
   const [protein, setProtein] = useState(0);
   const [carbs, setCarbs] = useState(0);
-  const [code, setCode] = useState("abc");
-  const [foodName, setFoodName] = useState("pizza");
+  const [code, setCode] = useState("");
+  const [foodName, setFoodName] = useState("");
   const [foodTag, setFoodTag] = useState("veg");
   const [img, setImg] = useState(null);
 

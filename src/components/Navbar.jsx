@@ -103,7 +103,7 @@ const Navbar = () => {
               <Link
                 to="/About"
                 className={
-                  location.pathname === "/About"
+                  location.pathname === "/About" || location.pathname === "/AboutFoodDesc"
                     ? "text-orange-500 font-bold"
                     : " "
                 }
@@ -158,7 +158,7 @@ const Navbar = () => {
                 <Link
                   to="/Nutrition"
                   className={
-                    location.pathname === "/Nutrition"
+                    location.pathname === "/Nutrition" || location.pathname == "/NutritionCalculator/:id"
                       ? "bg-orange-400 text-white p-3 rounded-full font-semibold"
                       : "py-3 px-3"
                   }
@@ -170,7 +170,7 @@ const Navbar = () => {
                 <Link
                   to="/About"
                   className={
-                    location.pathname === "/About"
+                    location.pathname === "/About" || location.pathname === "/AboutFoodDesc"
                       ? "bg-orange-400 text-white p-3 rounded-full font-semibold"
                       : "py-3 px-3"
                   }

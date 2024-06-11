@@ -6,7 +6,8 @@ import { db } from "../firebase";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import Alert from "./Alert";
-
+import {auth} from "../firebase"
+import { toast } from "react-toastify";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,13 +26,35 @@ const Login = () => {
     try {
       console.log("Logging in with email and password...");
       await logIn(email, password);
-      navigate("/")
+  
+      // Fetch user data from the database to get the role
+      const userRef = ref(db, `users/${auth.currentUser.uid}`);
+      const snapshot = await get(userRef);
+      const userData = snapshot.val();
+  
+      // Check if user data exists and has a role field
+      if (userData && userData.role) {
+        // Compare the role
+        if (userData.role === "admin") {
+          toast.success("Logged in successfully!");
+          navigate("/Admin"); // Redirect to admin page
+        } else {
+          toast.success("Logged in successfully!");
+          navigate("/"); // Redirect to homepage
+          
+        }
+      } else {
+        // If role is not specified or data is missing, redirect to a default page
+        navigate("/"); // Redirect to homepage or any default page
+      }
+  
       console.log("Logged in successfully!");
     } catch (err) {
       console.log("Error logging in:", err);
       setError(err.message);
     }
   };
+  
 
   const handleGoogleSignIn = async (e) => {
     e.preventDefault();

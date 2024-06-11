@@ -57,12 +57,51 @@
 // };
 
 // export default AdminNavbar;
-import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faUtensils, faBox, faBell, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-
+import { signOut as firebaseSignOut } from "firebase/auth";
+import { UserAuth } from "../context/AuthContext";
+import { auth } from "../firebase";
+import { Navigate } from "react-router-dom";
+import Swal from "sweetalert2";
 const AdminNavbar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  // const { user: currentUser } = UserAuth();
+  const [error, setError] = useState(null);
+
+  const handleSignOut = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will be logged out ⇤",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, log out",
+      cancelButtonText: "Cancel",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await firebaseSignOut(auth);
+          console.log("Sign out successful.");
+          navigate("/");
+          window.location.reload();
+        } catch (error) {
+          console.error("Error signing out:", error);
+          setError(error.message);
+        }
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        navigate("/Admin");
+      }
+    });
+  };
+
+  // useEffect(() => {
+  //   if (!currentUser) {
+  //     navigate("/");
+  //   }
+  // }, [currentUser, navigate]);
 
   return (
     <div className="bg-gray-800 h-full w-64 fixed top-0 left-0 overflow-y-auto">
@@ -125,9 +164,9 @@ const AdminNavbar = () => {
           </li>
           <li className="cursor-pointer">
             <Link
-              to="/OrderNotifications"
+              to="/AllOrders"
               className={
-                location.pathname === "/OrderNotifications"
+                location.pathname === "/AllOrders"
                 ? "font-bold bg-white text-black rounded-full px-6 py-4"
                 : "px-6 py-4"
               }
@@ -144,6 +183,7 @@ const AdminNavbar = () => {
                 ? "font-bold bg-white text-black rounded-full px-6 py-4"
                 : "px-6 py-4"
               }
+              onClick={handleSignOut}
             >
               <FontAwesomeIcon icon={faSignOutAlt} className="mr-2" />
               Logout

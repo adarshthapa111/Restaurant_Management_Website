@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
 import { UserAuth } from "../context/AuthContext";
-// import { ref, get } from "firebase/database";
 import { ref, get, orderByChild, equalTo } from "firebase/database";
-// import {set} from
 import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { signOut as firebaseSignOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { motion } from "framer-motion";
-// import Swal from 'sweetalert';
 import Swal from "sweetalert2";
 
 const Profile = () => {
@@ -62,7 +59,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (!currentUser) {
-      navigate("/");
+      navigate("/Login");
     }
   }, [currentUser, navigate]);
 

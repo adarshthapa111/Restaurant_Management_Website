@@ -44,12 +44,14 @@ export const AuthContextProvider = ({ children }) => {
         firstName: firstName,
         lastName: lastName,
         email: email,
+        role: "user", // Add the role field here
       });
       // Update the current user state with the user object including firstName and lastName
       setCurrentUser({
         ...userCredential.user,
         firstName: firstName,
         lastName: lastName,
+        role: "user", // Add the role field here
       });
 
       return userCredential.user;
@@ -93,41 +95,7 @@ export const AuthContextProvider = ({ children }) => {
     }
   }
 
-  // function googleSignIn() {
-  //   const googleAuthProvider = new GoogleAuthProvider();
-  //   return signInWithPopup(auth, googleAuthProvider);
-  // }
 
-
-
-  // function googleSignIn() {
-  //   const googleAuthProvider = new GoogleAuthProvider();
-  
-  //   return signInWithPopup(auth, googleAuthProvider)
-  //     .then((result) => {
-  //       // This gives you a Google Access Token. You can use it to access Google APIs.
-  //       // const credential = GoogleAuthProvider.credentialFromResult(result);
-  //       // const token = credential.accessToken;
-  
-  //       // The signed-in user info.
-  //       const user = result.user;
-  //       const profile = result.additionalUserInfo.profile;
-  
-  //       // Save user data to Realtime Database
-  //       const dbRef = ref(db, `users/${user.uid}`);
-  //       set(dbRef, {
-  //         firstName: profile.given_name,
-  //         lastName: profile.family_name,
-  //         email: user.email,
-  //       });
-  
-  //       return user;
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error signing in with Google:", error);
-  //       throw error;
-  //     });
-  // }
 
   function googleSignIn() {
     const googleAuthProvider = new GoogleAuthProvider();
@@ -179,15 +147,6 @@ export const AuthContextProvider = ({ children }) => {
         return Promise.reject(error.message);
       });
   }
-  //   useEffect(() => {
-  //     const unsubscribe = onAuthStateChanged(auth, (user) => {
-  //         setCurrentUser(user);
-  //     });
-
-  //     return unsubscribe;
-  // }, []);
-
-  // Inside AuthContextProvider component
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {

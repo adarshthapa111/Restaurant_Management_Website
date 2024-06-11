@@ -20,28 +20,15 @@ const MAX_SEATS_PER_TABLE = {
 const TableBookingForm = () => {
   const { id } = useParams();
   const tableId = parseInt(id);
-  const [fullName, setFullName] = useState("Adarsh Thapa");
-  const [email, setEmail] = useState("thapaAdarsh880@gmail.com");
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
   const [date, setDate] = useState("");
-  const [time, setTime] = useState("11:11");
-  const [people, setPeople] = useState("1");
-  const [occasion, setOccasion] = useState("family function");
+  const [time, setTime] = useState("");
+  const [people, setPeople] = useState("");
+  const [occasion, setOccasion] = useState("");
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [conflictError, setConflictError] = useState(null);
   const form = useRef();
-  // const [user, setUser] = useState(null);
-
-  // useEffect(() => {
-  //   const unsubscribe = auth.onAuthStateChanged((user) => {
-  //     if (user) {
-  //       setUser(user);
-  //     } else {
-  //       setUser(null);
-  //     }
-  //   });
-
-  //   return () => unsubscribe();
-  // }, []);
 
   const navigate = useNavigate();
 

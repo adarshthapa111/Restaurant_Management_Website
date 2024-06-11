@@ -1,8 +1,10 @@
-import { useEffect, Link, useState } from "react";
+// import { useEffect, Link, useState } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import SpecialDishes from "./SpecialDishes";
 import { auth } from "../firebase";
-import Alert from "./Alert";
+
 const variants = {
   hidden: { opacity: 0, y: -50 },
   visible: {
@@ -12,7 +14,24 @@ const variants = {
   },
 };
 
-const Homepage = () => {
+const Home = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    // Set up Firebase Authentication observer
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        // User is signed in
+        setIsAuthenticated(true);
+      } else {
+        // No user is signed in
+        setIsAuthenticated(false);
+      }
+    });
+
+    // Unsubscribe from Firebase Authentication observer when component unmounts
+    return () => unsubscribe();
+  }, []);
 
   return (
     <>
@@ -44,28 +63,28 @@ const Homepage = () => {
               </h2>
             </div>
             <div className="buttons py-3 space-x-4 flex justify-center">
-              {/* {!isAuthenticated && ( */}
-              <>
-                <Link to="/Login">
-                  <motion.button
-                    className="text-white bg-orange-400 rounded-md font-david-libre border-box w-32 p-2 text-lg shadow-lg hover:shadow-orange-200"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    Login ☞
-                  </motion.button>
-                </Link>
-                <Link to="/Register">
-                  <motion.button
-                    className="text-white bg-gray-800 opacity-90 rounded-md font-david-libre border-box px-8 py-2 text-lg shadow-lg shadow-gray-200 hover:shadow-gray-400"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    Register ☞
-                  </motion.button>
-                </Link>
-              </>
-              {/* )} */}
+              {!isAuthenticated && (
+                <>
+                  <Link to="/Login">
+                    <motion.button
+                      className="text-white bg-orange-400 rounded-md font-david-libre border-box w-32 p-2 text-lg shadow-lg hover:shadow-orange-200"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      Login ☞
+                    </motion.button>
+                  </Link>
+                  <Link to="/Register">
+                    <motion.button
+                      className="text-white bg-gray-800 opacity-90 rounded-md font-david-libre border-box px-8 py-2 text-lg shadow-lg shadow-gray-200 hover:shadow-gray-400"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      Register ☞
+                    </motion.button>
+                  </Link>
+                </>
+              )}
             </div>
 
             {/* <div className="buttons py-3 space-x-4 flex justify-center">
@@ -155,6 +174,7 @@ const Homepage = () => {
       </motion.div>
 
       <div className="bg-black bg-opacity-5 md:p-10 p-5">
+
         <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
@@ -617,4 +637,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default Home;
